@@ -1,5 +1,6 @@
 package com.swapnil.authentication.configs;
 
+import com.swapnil.authentication.configs.security.JwtAuthFilter;
 import com.swapnil.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,7 @@ public class SecurityConfiguration {
 
     private final UserService userService;
     private final CustomAuthEntryPoint customAuthEntryPoint;
-    private final jwtAuthFilter jwtAuthenticationFilter;
+    private final JwtAuthFilter jwtAuthenticationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
