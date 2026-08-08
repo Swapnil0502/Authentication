@@ -32,7 +32,7 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token){
-        return extractClaims(token).get("Email").toString();
+        return extractClaims(token).get("email").toString();
     }
 
     public Claims extractClaims(String token) throws JwtException {

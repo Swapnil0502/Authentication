@@ -13,6 +13,6 @@ public class AuthenticationResponse {
 
     private String token;
 
-    @Builder.Default
-    private String type = "Bearer";
+//    @Builder.Default
+//    private String type = "Bearer";
 }

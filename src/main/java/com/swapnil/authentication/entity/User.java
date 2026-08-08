@@ -27,8 +27,7 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
-    @NotBlank
-    @Size(min = 6, max = 13)
+
     private  String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -1,6 +1,7 @@
 package com.swapnil.authentication.service;
 
 import com.swapnil.authentication.entity.User;
+import com.swapnil.authentication.enums.Role;
 import com.swapnil.authentication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,9 +9,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +31,13 @@ public class UserService implements UserDetailsService {
                 .password(user.getPassword())
                 .authorities(mapRoleToAuthorities(user))
                 .build();
+
+    }
+
+
+
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     private Collection<? extends GrantedAuthority> mapRoleToAuthorities(User user) {
