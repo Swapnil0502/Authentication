@@ -48,15 +48,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest req){
+
+        // 1. Verify email and password
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
 
-        UserDetails userDetails = userService.loadUserByUsername(req.getEmail());
+        // 2. Fetch the actual User entity from DB
+        User user = userService.findByEmail(req.getEmail());
 
-        Set<Role> roles = userDetails.getAuthorities().stream().map(auth -> Role.valueOf(auth.getAuthority())).collect(Collectors.toSet());
-
+        // 3. Generate JWT with userId, email, and roles
         String token = jwtUtil.generateToken(
-                userDetails.getUsername(),
-                roles
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
         );
         return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
     }

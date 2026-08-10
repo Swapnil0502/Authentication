@@ -24,8 +24,9 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    public String generateToken(String email, Set<Role> roles){
+    public String generateToken(Long userId,String email, Set<Role> roles){
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
         claims.put("email", email);
         claims.put("roles", roles.stream().map(Role::name).collect(Collectors.toList()));
         return createToken(claims);
@@ -33,6 +34,14 @@ public class JwtUtil {
 
     public String extractEmail(String token){
         return extractClaims(token).get("email").toString();
+    }
+
+    public Long extractUserId(String token) {
+        Object userId = extractClaims(token).get("userId");
+        if (userId instanceof Integer) {
+            return ((Integer) userId).longValue();
+        }
+        return ((Number) userId).longValue();
     }
 
     public Claims extractClaims(String token) throws JwtException {
