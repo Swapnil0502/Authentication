@@ -3,7 +3,7 @@ package com.swapnil.authentication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvEntry;
+
 
 @SpringBootApplication
 public class AuthenticationApplication {
