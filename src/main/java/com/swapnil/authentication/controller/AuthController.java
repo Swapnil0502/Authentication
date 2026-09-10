@@ -39,10 +39,10 @@ public class AuthController {
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest req) {
         try {
             User user = registerUserService.registerUser(req.getEmail(), req.getPassword());
-            RegisterResponse res = new RegisterResponse("user created succesully", user.getEmail(), user.getId(), user.getPassword(), user.getRole());
+            RegisterResponse res = new RegisterResponse("user created successfully", user.getEmail(), user.getId(), user.getRole());
             return new ResponseEntity<>(res, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(new RegisterResponse(e.getMessage(),null, null, null, null), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new RegisterResponse(e.getMessage(),null, null, null), HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -19,6 +19,5 @@ public class RegisterResponse {
     private String message;
     private String email;
     private Long id;
-    private  String password;
     private Set<Role> role;
 }
